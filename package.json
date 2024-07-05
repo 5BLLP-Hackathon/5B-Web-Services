@@ -1,7 +1,7 @@
 {
   "name": "dvws-node",
   "version": "0.0.1",
-  "description": "Damn Vulnerable Web Service",
+  "description": "5B Web Service",
   "main": "app.js",
   "scripts": {
     "start": "node app.js",

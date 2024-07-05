@@ -1,8 +1,8 @@
 module.exports = {
   "openapi": "3.0.1",
   "info": {
-    "title": "DVWS API",
-    "description": "API Used for DVWS Application",
+    "title": "5B API",
+    "description": "API Used for 5B Application",
     "version": "0.1"
   },
   "servers": [{

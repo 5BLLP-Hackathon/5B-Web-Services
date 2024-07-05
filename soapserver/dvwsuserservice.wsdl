@@ -42,7 +42,7 @@
    </binding>
 
    <service name="User_Service">
-      <documentation>WSDL File for DVWS User Service</documentation>
+      <documentation>WSDL File for 5B User Service</documentation>
       <port binding="tns:Username_Binding" name="Username_Port">
          <soap:address
             location="http://dvws.local/dvwsuserservice/" />

@@ -1,9 +1,9 @@
 [![Gitpod Ready-to-Code](https://img.shields.io/badge/Gitpod-Ready--to--Code-blue?logo=gitpod)](https://gitpod.io/#https://github.com/snoopysecurity/dvws-node) 
 
 # dvws-node
-Damn Vulnerable Web Services is a vulnerable application with a web service and an API that can be used to learn about webservices/API related vulnerabilities.  This is a replacement for https://github.com/snoopysecurity/dvws
+5B Web Services is a vulnerable application with a web service and an API that can be used to learn about webservices/API related vulnerabilities.  This is a replacement for https://github.com/snoopysecurity/dvws
 
-![DVWS](https://github.com/snoopysecurity/Public/blob/master/dvws/dvws.png)
+![5B](https://github.com/snoopysecurity/Public/blob/master/dvws/dvws.png)
 
 This vulnerable application contains the following API/Web Service vulnerabilities:
 
@@ -57,13 +57,13 @@ Create a MySQL database which listens of port `3306` Docker can be used as follo
 docker run -p 3306:3306 --name dvws-mysql -e MYSQL_ROOT_PASSWORD=mysecretpassword -e MYSQL_DATABASE=dvws_sqldb -d mysql:8
 ```
 
-Git clone the DVWS Repository 
+Git clone the 5B Repository 
 
 ```
 git clone https://github.com/snoopysecurity/dvws-node.git
 ```
 
-Change directory to DVWS
+Change directory to 5B
 
 ```
 cd dvws-node
@@ -100,7 +100,7 @@ Within your /etc/hosts file, ensure localhost resolves to dvws.local. This ensur
 
 If you have docker compose installed on your system, all you need to execute is : 
 
-Clone DVWS
+Clone 5B
 
 ```
 git clone https://github.com/snoopysecurity/dvws-node.git
@@ -116,12 +116,12 @@ Start Docker
 ```
 This will start the dvws service with the backend MySQL database and the NoSQL database.
 
-If the DVWS web service doesn't start because of delayed MongoDB or MySQL setup, then increase the value of environment variable : `WAIT_HOSTS_TIMEOUT`
+If the 5B web service doesn't start because of delayed MongoDB or MySQL setup, then increase the value of environment variable : `WAIT_HOSTS_TIMEOUT`
 
 
 
 ## Solutions
-* [DVWS Solutions Wiki](https://github.com/snoopysecurity/dvws-node/wiki)
+* [5B Solutions Wiki](https://github.com/snoopysecurity/dvws-node/wiki)
 
 
 

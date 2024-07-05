@@ -16,7 +16,7 @@ const sequelize = new Sequelize('dvws_sqldb', connUser, connPass, {
   dialect: 'mysql'
 });
 
-console.log('[+] Creating MySQL database for DVWS....');
+console.log('[+] Creating MySQL database for 5B....');
 sequelize.query("DROP DATABASE IF EXISTS dvws_sqldb;")
   .then(() => {
     console.log("[+] Old SQL Database deleted");
