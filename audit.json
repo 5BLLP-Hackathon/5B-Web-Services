@@ -1,0 +1,21 @@
+{
+    "keepSettings": {
+        "type": 1,
+        "amount": 2
+    },
+    "auditFilename": "audit.json",
+    "hashType": "md5",
+    "extension": "",
+    "files": [
+        {
+            "date": 1720427936804,
+            "name": "/home/dipper/Downloads/Apps/dvws-node/logs/raw.log.20240708",
+            "hash": "98fb7812ff7ab8f1d0bd7ee8b8d6df84"
+        },
+        {
+            "date": 1720431987643,
+            "name": "/home/dipper/Downloads/Apps/dvws-node/logs/formatted.log.20240708",
+            "hash": "941db45ffeb8fd8583b0ad1c54ff3639"
+        }
+    ]
+}

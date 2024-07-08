@@ -31,6 +31,59 @@ app.use('/dvwsuserservice', soapservice);
 app.use(bodyParser.json());
 app.use(fileUpload({ parseNested: true }));
 
+// Create a write stream for custom logging
+const customLogStream1 = require('file-stream-rotator').getStream({
+  filename: path.resolve('logs/formatted.log'),
+  frequency: 'daily',
+  verbose: false,
+  max_logs: '2d'
+});
+
+// Create a write stream for custom logging
+const customLogStream2 = require('file-stream-rotator').getStream({
+  filename: path.resolve('logs/raw.log'),
+  frequency: 'daily',
+  verbose: false,
+  max_logs: '2d'
+  });
+
+// Custom middleware to log request payload and headers to a file
+app.use((req, res, next) => {
+  const method = req.method;
+  const headers = JSON.stringify(req.headers);
+  const body = (() => {
+    if (req.is('application/json')) return JSON.stringify(req.body);
+    if (req.is('application/x-www-form-urlencoded')) return JSON.stringify(req.body);
+    if (req.is('application/octet-stream')) return req.body.toString('hex');
+    if (req.is('text/*')) return req.body;
+    return '';
+  })();
+  // const headerJSON = JSON.parse(req.headers);
+  // console.log(headerJSON);
+  const logEntry = `URL: ${req.headers.host}, UserAgent: ${req.headers['user-agent']}, Cookie: ${req.headers.cookie}, Payload: ${body}\n`;
+  customLogStream1.write(logEntry);
+  next();
+});
+
+
+// Custom middleware to log request payload and headers to a file
+app.use((req, res, next) => {
+  const method = req.method;
+  const headers = JSON.stringify(req.headers);
+  const body = (() => {
+    if (req.is('application/json')) return JSON.stringify(req.body);
+    if (req.is('application/x-www-form-urlencoded')) return JSON.stringify(req.body);
+    if (req.is('application/octet-stream')) return req.body.toString('hex');
+    if (req.is('text/*')) return req.body;
+    return '';
+  })();
+  // const headerJSON = JSON.parse(req.headers);
+  // console.log(headerJSON);
+  const logEntry = `Method: ${method}, URL: ${req.headers.host}, UserAgent: ${req.headers['user-agent']}, Cookie: ${req.headers.cookie}, Payload: ${body}, ContentType: ${req.headers['content-type']}, ContentLanguage: ${req.headers['content-language']}, Origin: ${req.headers.origin}\n`;
+  customLogStream2.write(logEntry);
+  next();
+});
+
 const jwt = require('jsonwebtoken');
 
 const options = {
