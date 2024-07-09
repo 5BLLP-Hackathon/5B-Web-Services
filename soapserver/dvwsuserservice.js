@@ -2,6 +2,7 @@ var express = require('express');
 var Builder = require('xml2js').Builder;
 var fs = require("fs");
 const libxml = require('libxmljs');
+const validateToken = require('../utils').validateToken;
 var bodyParser = require('body-parser');
 var router = express.Router();
 
@@ -12,7 +13,7 @@ const User = require('../models/users');
 const path = require("path");
 const servicewsdl = fs.readFileSync(path.resolve(__dirname, "dvwsuserservice.wsdl"));
 
-
+router.use(validateToken);
 router.use(bodyParser.text({ type: '*/*' }));
 router.use(function timeLogStart(req, res, next) {
     res.locals.startTimeHR = process.hrtime();

@@ -184,7 +184,7 @@ function passwordCompare(argspassword,dbresult) {
           "user:write",
           "user:admin"
         ] };
-        const options = { expiresIn: '2d', issuer: 'https://github.com/snoopysecurity', algorithm: "HS256"};
+        const options = { expiresIn: '2d', issuer: 'https://github.com/dipyamanroy', algorithm: "HS256"};
         const secret = process.env.JWT_SECRET;
         const token = jwt.sign(payload, secret, options);
         
@@ -196,7 +196,7 @@ function passwordCompare(argspassword,dbresult) {
           "user:read",
           "user:write"
         ] };
-        const options = { expiresIn: '2d', issuer: 'https://github.com/snoopysecurity', algorithm: "HS256"};
+        const options = { expiresIn: '2d', issuer: 'https://github.com/dipyamanroy', algorithm: "HS256"};
         const secret = process.env.JWT_SECRET;
         const token = jwt.sign(payload, secret, options);
 

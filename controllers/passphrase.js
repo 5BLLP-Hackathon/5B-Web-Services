@@ -20,7 +20,7 @@ function set_cors(req, res) {
 
 const options = {
   expiresIn: '2d',
-  issuer: 'https://github.com/snoopysecurity',
+  issuer: 'https://github.com/dipyamanroy',
   algorithms: ["HS256", "none"],
   ignoreExpiration: true
 };

@@ -1,9 +1,9 @@
-[![Gitpod Ready-to-Code](https://img.shields.io/badge/Gitpod-Ready--to--Code-blue?logo=gitpod)](https://gitpod.io/#https://github.com/snoopysecurity/dvws-node) 
+[![Gitpod Ready-to-Code](https://img.shields.io/badge/Gitpod-Ready--to--Code-blue?logo=gitpod)](https://gitpod.io/#https://github.com/dipyamanroy/dvws-node) 
 
 # dvws-node
-5B Web Services is a vulnerable application with a web service and an API that can be used to learn about webservices/API related vulnerabilities.  This is a replacement for https://github.com/snoopysecurity/dvws
+5B Web Services is a vulnerable application with a web service and an API that can be used to learn about webservices/API related vulnerabilities.  This is a replacement for https://github.com/dipyamanroy/dvws
 
-![5B](https://github.com/snoopysecurity/Public/blob/master/dvws/dvws.png)
+![5B](https://github.com/dipyamanroy/Public/blob/master/dvws/dvws.png)
 
 This vulnerable application contains the following API/Web Service vulnerabilities:
 
@@ -60,7 +60,7 @@ docker run -p 3306:3306 --name dvws-mysql -e MYSQL_ROOT_PASSWORD=mysecretpasswor
 Git clone the 5B Repository 
 
 ```
-git clone https://github.com/snoopysecurity/dvws-node.git
+git clone https://github.com/dipyamanroy/dvws-node.git
 ```
 
 Change directory to 5B
@@ -103,7 +103,7 @@ If you have docker compose installed on your system, all you need to execute is 
 Clone 5B
 
 ```
-git clone https://github.com/snoopysecurity/dvws-node.git
+git clone https://github.com/dipyamanroy/dvws-node.git
 ```
 Change directory to dvws-node 
 
@@ -121,7 +121,7 @@ If the 5B web service doesn't start because of delayed MongoDB or MySQL setup, t
 
 
 ## Solutions
-* [5B Solutions Wiki](https://github.com/snoopysecurity/dvws-node/wiki)
+* [5B Solutions Wiki](https://github.com/dipyamanroy/dvws-node/wiki)
 
 
 

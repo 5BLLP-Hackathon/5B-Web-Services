@@ -16,6 +16,16 @@
             "date": 1720431987643,
             "name": "/home/dipper/Downloads/Apps/dvws-node/logs/formatted.log.20240708",
             "hash": "941db45ffeb8fd8583b0ad1c54ff3639"
+        },
+        {
+            "date": 1720504964850,
+            "name": "/home/dipper/Downloads/Apps/dvws-node/logs/formatted.log.20240709",
+            "hash": "a59af6f75d1e2bf7909f592fd4b5abf2"
+        },
+        {
+            "date": 1720504964852,
+            "name": "/home/dipper/Downloads/Apps/dvws-node/logs/raw.log.20240709",
+            "hash": "38a66dce474ae69768c5272a840956aa"
         }
     ]
 }

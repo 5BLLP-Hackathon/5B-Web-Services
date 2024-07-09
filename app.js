@@ -79,7 +79,7 @@ app.use((req, res, next) => {
   })();
   // const headerJSON = JSON.parse(req.headers);
   // console.log(headerJSON);
-  const logEntry = `Method: ${method}, URL: ${req.headers.host}, UserAgent: ${req.headers['user-agent']}, Cookie: ${req.headers.cookie}, Payload: ${body}, ContentType: ${req.headers['content-type']}, ContentLanguage: ${req.headers['content-language']}, Origin: ${req.headers.origin}\n`;
+  const logEntry = `Method: ${method}, URL: ${req.headers.host}, UserAgent: ${req.headers['user-agent']}, Cookie: ${req.headers.cookie}, Payload: ${body}, ContentType: ${req.headers['content-type']}, ContentLanguage: ${req.headers['content-language']}, Origin: ${req.headers.origin}, Authorization: ${req.headers.authorization}, Location: ${req.headers.location}\n`;
   customLogStream2.write(logEntry);
   next();
 });
@@ -88,7 +88,7 @@ const jwt = require('jsonwebtoken');
 
 const options = {
   expiresIn: '2d',
-  issuer: 'https://github.com/snoopysecurity',
+  issuer: 'https://github.com/dipyamanroy',
   algorithms: ["HS256", "none"],
   ignoreExpiration: true
 };

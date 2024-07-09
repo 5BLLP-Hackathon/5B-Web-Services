@@ -8,13 +8,13 @@ var guard = require('express-jwt-permissions')({
 module.exports = (router) => {
 
   router.route('/v1/info')
-    .get(controller.get_info);
+    .get(validateToken, controller.get_info);
 
   router.route('/v2/info')
-    .get(controller.get_info);
+    .get(validateToken, controller.get_info);
 
   router.route('/v2/release/:release')
-    .get(controller.get_release);
+    .get(validateToken, controller.get_release);
 
   router.route('/v2/sysinfo/:command')
     .get(validateToken, controller.get_sysinfo);
