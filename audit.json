@@ -8,24 +8,24 @@
     "extension": "",
     "files": [
         {
-            "date": 1720427936804,
-            "name": "/home/dipper/Downloads/Apps/dvws-node/logs/raw.log.20240708",
-            "hash": "98fb7812ff7ab8f1d0bd7ee8b8d6df84"
+            "date": 1721631664714,
+            "name": "/home/dipper/Downloads/Apps/dvws-node/logs/formatted.log.20240722",
+            "hash": "3074bb8effed3c493373d66186a64356"
         },
         {
-            "date": 1720431987643,
-            "name": "/home/dipper/Downloads/Apps/dvws-node/logs/formatted.log.20240708",
-            "hash": "941db45ffeb8fd8583b0ad1c54ff3639"
+            "date": 1721631664716,
+            "name": "/home/dipper/Downloads/Apps/dvws-node/logs/raw.log.20240722",
+            "hash": "3d1480c20c943cc8da1f78017a530513"
         },
         {
-            "date": 1720504964850,
-            "name": "/home/dipper/Downloads/Apps/dvws-node/logs/formatted.log.20240709",
-            "hash": "a59af6f75d1e2bf7909f592fd4b5abf2"
+            "date": 1721651279086,
+            "name": "/home/dipper/Downloads/Apps/5bws/logs/formatted.log.20240722",
+            "hash": "e59528be57e975409ab506685050bc09"
         },
         {
-            "date": 1720504964852,
-            "name": "/home/dipper/Downloads/Apps/dvws-node/logs/raw.log.20240709",
-            "hash": "38a66dce474ae69768c5272a840956aa"
+            "date": 1721651279088,
+            "name": "/home/dipper/Downloads/Apps/5bws/logs/raw.log.20240722",
+            "hash": "e42e61125a50672e79c394d624ef44dc"
         }
     ]
 }

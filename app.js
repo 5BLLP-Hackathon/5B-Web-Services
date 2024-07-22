@@ -6,6 +6,7 @@ const cors = require('cors');
 const swaggerUI = require('swagger-ui-express');
 const fileUpload = require('express-fileupload');
 const path = require('path');
+const validateToken = require('./utils').validateToken;
 
 const swaggerDocument = require('./swagger'); // Swagger
 const soapservice = require('./soapserver/dvwsuserservice'); // SOAP Service
@@ -19,11 +20,25 @@ const router = express.Router();
 
 const routes = require('./routes/index.js');
 
-app.use(express.static('public'));
 app.use("/css", express.static(path.join(__dirname, "node_modules/bootstrap/dist/css")));
 app.use("/js", express.static(path.join(__dirname, "node_modules/bootstrap/dist/js")));
 app.use("/js", express.static(path.join(__dirname, "node_modules/jquery/dist")));
+
+const excludedRoutes = ['/', '/register', '', '/login'];
+
+// Conditional middleware to validate token except for excluded routes
+app.use((req, res, next) => { 
+  console.log(req.path);
+  if (excludedRoutes.includes(req.path)) {
+    next();
+  } else {
+    validateToken(req, res, next);
+  }
+});
+
+
 app.use("/js", express.static(path.join(__dirname, "node_modules/angular")));
+app.use(express.static('public'));
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerDocument));

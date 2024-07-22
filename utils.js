@@ -17,7 +17,8 @@ module.exports = {
         req.decoded = result;
         next();
       } catch (err) {
-        throw new Error(err);
+        res.status(401).send(err);
+        //throw new Error(err);
       }
     } else {
       result = {
