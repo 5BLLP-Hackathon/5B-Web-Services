@@ -1,82 +1,84 @@
-<script src="./js/jquery.min.js"></script>
-<script type="text/javascript" src="./js/angular.min.js"></script>
-<link href="./css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-<script src="./js/bootstrap.min.js"></script>
-<link href="index.css" rel="stylesheet" id="inline-css">
-<!------ Include the above in your HEAD tag ---------->
-
-
-
-<div class="sidenav">
-   <div class="login-main-text">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>5B Web Services Home</title>
+  <script src="./js/jquery.min.js"></script>
+  <script type="text/javascript" src="./js/angular.min.js"></script>
+  <link href="./css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+  <script src="./js/bootstrap.min.js"></script>
+  <link href="index.css" rel="stylesheet" id="inline-css">
+</head>
+<body>
+  <div class="sidenav">
+    <div class="login-main-text">
       <h2>5B Web Services<br> Home Area</h2>
       <p>All Accessible Areas can be found here</p>
       <p></p>
-   </div>
-</div>
-<div class="main">
-   <div class="col-md-6 col-sm-12">
+    </div>
+  </div>
+  <div class="main">
+    <div class="col-md-6 col-sm-12">
       <div class="login-form">
-         <div ng-app="app" ng-controller="MyController">
-            <script>
-               var url = window.location.href; var hash = url.substring(url.indexOf('#') + 1);
-               document.write('Welcome User: <b>' + hash + '</b>');
-            </script>
-             <p>5B Release: {{ ResponseMessage  }}</p>
-            <hr>
-            <div>
-               The following areas can be accessed:<br>
-               <a href="notes.html">Notes Area</a><br>
-               <a href="admin.html">Admin Area</a><br>
-               <a href="search.html">Public Notes Search</a><br>
-               <a href="passphrasegen.html">Passphrase Generator</a><br>
-               <a href="upload.html">File Upload Area</a><br>
-            </div>
-            
-         </div>
+        <div ng-app="app" ng-controller="MyController">
+          <p id="welcome-message"></p>
+          <hr>
+          <div>
+            The following areas can be accessed:<br>
+            <a href="notes.html">Notes Area</a><br>
+            <a href="admin.html">Admin Area</a><br>
+            <a href="search.html">Public Notes Search</a><br>
+            <a href="passphrasegen.html">Passphrase Generator</a><br>
+            <a href="upload.html">File Upload Area</a><br>
+          </div>
+          <br><br><br><br><br><br>
+          <a id="logout-link" href="#">Logout</a>
+        </div>
       </div>
-      
-      <br><br><br><br><br><br>
-      <script>
-         document.write(`<a href="/api/v2/users/logout/${document.domain}">Logout</a>`);
-      </script>
-   </p>
-   
-   </div>
+    </div>
+  </div>
 
-</div>
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      var url = window.location.href; 
+      var hash = url.substring(url.indexOf('#') + 1);
+      document.getElementById('welcome-message').innerHTML = 'Welcome User: <b>' + hash + '</b>';
 
+      var logoutLink = document.getElementById('logout-link');
+      logoutLink.href = "/api/v2/users/logout/" + document.domain;
+    });
 
-
-<script type="text/javascript">
-
-
-   var app = angular.module('app', [])
-   app.controller('MyController', function ($scope, $http, $window) {
+    var app = angular.module('app', []);
+    app.controller('MyController', function($scope, $http, $window) {
       getFromServer();
+
       function getFromServer() {
-         var get = $http({
-            method: "GET",
-            url: "/api/v2/release/0.0.1",
-            dataType: 'json',
-            headers: { "Content-Type": "application/json" }
+        var token = localStorage.getItem('JWTSessionID');
+        if (!token) {
+          $window.location.href = "login.html";
+          return;
+        }
 
-         });
-
-         get.success(function (data, status) {
-            if (data) {
-               $scope.ResponseMessage = data;
-
+        $http({
+          method: "GET",
+          url: "/api/v2/release/0.0.1",
+          headers: {
+            "Content-Type": "application/json",
+            'Authorization': 'Bearer ' + token
+          }
+        }).then(function(response) {
+          if (response.data) {
+            $scope.ResponseMessage = response.data;
+          }
+        }, function(error) {
+          console.error('Error:', error);
+          if (error.status === 401) {
+            $window.location.href = "login.html";
+          }
+        });
       }
-   });
-
-
-   }
-
-});
-</script>
-
-
+    });
+  </script>
 </body>
-
 </html>

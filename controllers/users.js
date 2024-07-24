@@ -5,6 +5,13 @@ const jwt = require('jsonwebtoken');
 const connUri = process.env.MONGO_LOCAL_CONN_URL;
 const User = require('../models/users');
 
+const express = require('express');
+const cookieParser = require('cookie-parser');
+
+const app = express();
+app.use(cookieParser());
+
+
 function set_cors(req,res) {
   if (req.get('origin')) {
   res.header('Access-Control-Allow-Origin', req.get('origin'))
@@ -83,10 +90,29 @@ module.exports = {
   },
 
   logout: (req, res) => {
+    // Get all cookies from the request
+    const cookies = req.headers.cookie ? req.headers.cookie.split(';') : [];
 
-    res.redirect("http://" + req.params.redirect);
-      
-  },
+    // Loop through all cookies and set them to expire in the past
+    cookies.forEach(cookie => {
+        const [name] = cookie.split('=');
+        res.cookie(name.trim(), '', { expires: new Date(0), path: '/' });
+    });
+
+    // Generate the host URL with the correct port
+    const host = req.headers.host;
+    const redirectUrl = `http://${host}/`;
+
+    // Send a response that includes a script to clear local storage and then redirect
+    res.send(`
+        <script>
+            // Clear the JWTSessionID from local storage
+            localStorage.removeItem('JWTSessionID');
+            // Redirect to the specified URL
+            window.location.href = '${redirectUrl}';
+        </script>
+    `);
+},
 
 
   login: (req, res) => {

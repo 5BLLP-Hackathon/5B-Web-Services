@@ -18,26 +18,26 @@ const { GqSchema } = require('./graphql/schema');
 const app = express();
 const router = express.Router();
 
+const cookieParser = require('cookie-parser');
 const routes = require('./routes/index.js');
 
 app.use("/css", express.static(path.join(__dirname, "node_modules/bootstrap/dist/css")));
 app.use("/js", express.static(path.join(__dirname, "node_modules/bootstrap/dist/js")));
 app.use("/js", express.static(path.join(__dirname, "node_modules/jquery/dist")));
+app.use("/js", express.static(path.join(__dirname, "node_modules/angular")));
 
-const excludedRoutes = ['/', '/register', '', '/login'];
+const excludedRoutes = ['/register', '/login', '/api/v2/users', '.css', '.ico'];
 
+app.use(cookieParser());
 // Conditional middleware to validate token except for excluded routes
 app.use((req, res, next) => { 
-  console.log(req.path);
-  if (excludedRoutes.includes(req.path)) {
+  if (excludedRoutes.some(excluded => req.path.includes(excluded)) || req.path === '/') {
     next();
   } else {
     validateToken(req, res, next);
   }
 });
 
-
-app.use("/js", express.static(path.join(__dirname, "node_modules/angular")));
 app.use(express.static('public'));
 
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -75,7 +75,16 @@ app.use((req, res, next) => {
   })();
   // const headerJSON = JSON.parse(req.headers);
   // console.log(headerJSON);
-  const logEntry = `URL: ${req.headers.host}, UserAgent: ${req.headers['user-agent']}, Cookie: ${req.headers.cookie}, Payload: ${body}\n`;
+  let auth_token;
+  if (req.headers.authorization) {
+    auth_token = req.headers.authorization.split(' ')[1]; // Bearer <token>
+  } else {
+    auth_token = req.cookies.token; 
+  }
+
+  let user_deets = jwt.verify(auth_token, process.env.JWT_SECRET, options);
+
+  const logEntry = `User: ${user_deets.user}, URL: ${req.headers.host}, UserAgent: ${req.headers['user-agent']}, Cookie: ${req.headers.cookie}, Payload: ${body}, Token: ${auth_token}\n`;
   customLogStream1.write(logEntry);
   next();
 });
@@ -94,7 +103,16 @@ app.use((req, res, next) => {
   })();
   // const headerJSON = JSON.parse(req.headers);
   // console.log(headerJSON);
-  const logEntry = `Method: ${method}, URL: ${req.headers.host}, UserAgent: ${req.headers['user-agent']}, Cookie: ${req.headers.cookie}, Payload: ${body}, ContentType: ${req.headers['content-type']}, ContentLanguage: ${req.headers['content-language']}, Origin: ${req.headers.origin}, Authorization: ${req.headers.authorization}, Location: ${req.headers.location}\n`;
+  let auth_token;
+  if (req.headers.authorization) {
+    auth_token = req.headers.authorization.split(' ')[1]; // Bearer <token>
+  } else {
+    auth_token = req.cookies.token; 
+  }
+
+  let user_deets = jwt.verify(auth_token, process.env.JWT_SECRET, options);
+
+  const logEntry = `User: ${user_deets.user}, Method: ${method}, URL: ${req.headers.host}, UserAgent: ${req.headers['user-agent']}, Cookie: ${req.headers.cookie}, Payload: ${body}, ContentType: ${req.headers['content-type']}, ContentLanguage: ${req.headers['content-language']}, Origin: ${req.headers.origin}, Authorization: ${req.headers.authorization}, Location: ${req.headers.location}\n`;
   customLogStream2.write(logEntry);
   next();
 });

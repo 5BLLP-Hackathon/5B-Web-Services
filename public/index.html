@@ -49,6 +49,7 @@
             post.success(function (data, status) {
                 if (data.status == 200) {
                 $window.localStorage.setItem('JWTSessionID', data.token);
+                document.cookie = "token=" + data.token + "; path=/; secure; SameSite=Lax";
                 window.location = "home.html#" + data.result.username;
                 $scope.DataResponse = data.result.username;
                  }
