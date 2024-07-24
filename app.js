@@ -79,12 +79,15 @@ app.use((req, res, next) => {
   if (req.headers.authorization) {
     auth_token = req.headers.authorization.split(' ')[1]; // Bearer <token>
   } else {
-    auth_token = req.cookies.token; 
+    auth_token = req.cookies?.token; 
+  }
+  let user_deets;
+  if (auth_token){
+    user_deets = jwt.verify(auth_token, process.env.JWT_SECRET, options);
+    const logEntry = `User: ${user_deets?.user}, URL: ${req.headers.host}, UserAgent: ${req.headers['user-agent']}, Cookie: ${req.headers.cookie}, Payload: ${body}, Token: ${auth_token}\n`;
   }
 
-  let user_deets = jwt.verify(auth_token, process.env.JWT_SECRET, options);
-
-  const logEntry = `User: ${user_deets.user}, URL: ${req.headers.host}, UserAgent: ${req.headers['user-agent']}, Cookie: ${req.headers.cookie}, Payload: ${body}, Token: ${auth_token}\n`;
+  const logEntry = `URL: ${req.headers.host}, UserAgent: ${req.headers['user-agent']}, Cookie: ${req.headers.cookie}, Payload: ${body}, Token: ${auth_token}\n`;
   customLogStream1.write(logEntry);
   next();
 });
@@ -107,13 +110,16 @@ app.use((req, res, next) => {
   if (req.headers.authorization) {
     auth_token = req.headers.authorization.split(' ')[1]; // Bearer <token>
   } else {
-    auth_token = req.cookies.token; 
+    auth_token = req.cookies?.token; 
+  }
+  let user_deets;
+  if (auth_token){
+    user_deets = jwt.verify(auth_token, process.env.JWT_SECRET, options);
+    const logEntry = `User: ${user_deets?.user}, URL: ${req.headers.host}, UserAgent: ${req.headers['user-agent']}, Cookie: ${req.headers.cookie}, Payload: ${body}, Token: ${auth_token}\n`;
   }
 
-  let user_deets = jwt.verify(auth_token, process.env.JWT_SECRET, options);
-
-  const logEntry = `User: ${user_deets.user}, Method: ${method}, URL: ${req.headers.host}, UserAgent: ${req.headers['user-agent']}, Cookie: ${req.headers.cookie}, Payload: ${body}, ContentType: ${req.headers['content-type']}, ContentLanguage: ${req.headers['content-language']}, Origin: ${req.headers.origin}, Authorization: ${req.headers.authorization}, Location: ${req.headers.location}\n`;
-  customLogStream2.write(logEntry);
+  const logEntry = `URL: ${req.headers.host}, UserAgent: ${req.headers['user-agent']}, Cookie: ${req.headers.cookie}, Payload: ${body}, Token: ${auth_token}\n`;
+  customLogStream1.write(logEntry);
   next();
 });
 
